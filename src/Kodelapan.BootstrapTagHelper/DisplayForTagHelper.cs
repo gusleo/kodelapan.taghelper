@@ -17,11 +17,13 @@ namespace Kodelapan.BootstrapTagHelper
         private const string ForDecimalSeparator = "decimal-separator";
         private const string ForGroupSeparator = "group-separator";
         private const string ForSymbol = "symbol";
+        private const string ForDecimalDigit = "decimal-digit";
 
         private string _cultureInfo;
         private string _symbol;
         private string _decimalSeparator;
         private string _groupSeparator;
+        private int _decimalDigit;
 
         [HtmlAttributeName(ForAttributeName)]
         public ModelExpression For { get; set; }
@@ -76,6 +78,19 @@ namespace Kodelapan.BootstrapTagHelper
                 _symbol = value;
             }
         }
+        [HtmlAttributeName(ForDecimalDigit)]
+        public int DecimalDigit
+        {
+            get
+            {
+                return _decimalDigit;
+            }
+            set
+            {
+                _decimalDigit = value;
+            }
+
+        }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -102,6 +117,7 @@ namespace Kodelapan.BootstrapTagHelper
                     var numberFormatInfo = (NumberFormatInfo)cultureInfo.NumberFormat.Clone();
                     numberFormatInfo.CurrencySymbol = Symbol;
                     numberFormatInfo.CurrencyDecimalSeparator = DecimalSeparator;
+                    numberFormatInfo.CurrencyDecimalDigits = DecimalDigit;
                     numberFormatInfo.CurrencyGroupSeparator = GroupSeparator;
                     numberFormatInfo.NumberDecimalSeparator = DecimalSeparator;
                     numberFormatInfo.NumberGroupSeparator = GroupSeparator;
